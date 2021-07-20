@@ -27,10 +27,10 @@ RUN apt-get install -y mercurial libperl-dev libpcre3-dev zlib1g-dev libxslt1-de
 FROM nginx
 COPY --from=build /src/nginx-quic/objs/nginx /usr/sbin
 
-RUN groupadd -g 1000 nginx \
-  && useradd -m -u 1000 -d /var/cache/nginx -s /sbin/nologin -g nginx nginx \
+#RUN groupadd -g 1000 nginx \
+ # && useradd -m -u 1000 -d /var/cache/nginx -s /sbin/nologin -g nginx nginx \
   # forward request and error logs to docker log collector
-  && mkdir -p /var/log/nginx \
+RUN mkdir -p /var/log/nginx \
   && touch /var/log/nginx/access.log /var/log/nginx/error.log \
   && chown nginx: /var/log/nginx/access.log /var/log/nginx/error.log \
   && ln -sf /dev/stdout /var/log/nginx/access.log \
