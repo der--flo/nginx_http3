@@ -23,7 +23,6 @@ RUN apt-get install -y mercurial libperl-dev libpcre3-dev zlib1g-dev libxslt1-de
                    --with-cc-opt="-I/src/boringssl/include" --add-module=/src/ngx_brotli --with-ld-opt="-L/src/boringssl/build/ssl -L/src/boringssl/build/crypto" && \
                    --with-cc-opt='-g -O2 -march=westmere -flto -funsafe-math-optimizations -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2' \
                    --with-ld-opt='-Wl,-z,relro -Wl,--as-needed' \
-
     make
 
 FROM nginx
