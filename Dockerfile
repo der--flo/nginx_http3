@@ -3,6 +3,7 @@ FROM nginx AS build
 ENV TZ=Europe/Berlin
 
 WORKDIR /src
+
 RUN apt-get update && \
     apt-get install -y git gcc make g++ cmake perl libunwind-dev golang && \
     git clone https://boringssl.googlesource.com/boringssl && \
@@ -21,8 +22,6 @@ RUN apt-get install -y mercurial libperl-dev libpcre3-dev zlib1g-dev libxslt1-de
                    --build=nginx-quic --with-debug --add-module=../njs/nginx \
                    --with-http_v3_module --with-http_quic_module --with-stream_quic_module \
                    --with-cc-opt="-I/src/boringssl/include" --add-module=/src/ngx_brotli --with-ld-opt="-L/src/boringssl/build/ssl -L/src/boringssl/build/crypto" && \
-                   --with-cc-opt='-g -O2 -march=westmere -flto -funsafe-math-optimizations -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2' \
-                   --with-ld-opt='-Wl,-z,relro -Wl,--as-needed' \
     make
 
 FROM nginx
